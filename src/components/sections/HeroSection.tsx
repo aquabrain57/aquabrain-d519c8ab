@@ -8,72 +8,38 @@ import teamImage from "@/assets/aquabrain-team.jpg";
 import boatImage from "@/assets/aquabrain-boat.jpg";
 import work1Image from "@/assets/aquabrain-work1.jpg";
 import trainingImage from "@/assets/aquabrain-training.jpg";
-import labImage from "@/assets/aquabrain-lab.jpg";
 import bassinImage from "@/assets/aquabrain-bassin.jpg";
 
 const slides = [
   {
     image: cageImage,
-    badge: "Basé au Togo • Expertise Ouest-Africaine",
-    title: "Intelligence, Innovation et",
-    highlight: "Impact",
-    subtitle: "au service de l'Aquaculture",
-    description:
-      "Accompagnement technique, stratégique et opérationnel de projets de pêche et d'aquaculture en Afrique de l'Ouest",
+    title: "Intelligence, Innovation, Impact",
+    description: "Au service de l'aquaculture en Afrique de l'Ouest",
   },
   {
     image: teamImage,
-    badge: "Une équipe passionnée",
-    title: "Ensemble, bâtissons",
-    highlight: "l'avenir",
-    subtitle: "de l'aquaculture africaine",
-    description:
-      "Notre équipe pluridisciplinaire met son expertise au service de votre réussite",
+    title: "Une équipe d'experts à vos côtés",
+    description: "Accompagnement technique et stratégique",
   },
   {
     image: boatImage,
-    badge: "Sur le terrain",
-    title: "De l'idée à la",
-    highlight: "réalisation",
-    subtitle: "nous vous accompagnons",
-    description:
-      "Des solutions concrètes et adaptées aux réalités locales pour des projets durables",
+    title: "De l'idée à la réalisation",
+    description: "Des solutions adaptées aux réalités locales",
   },
   {
     image: work1Image,
-    badge: "Excellence technique",
-    title: "La qualité au cœur",
-    highlight: "de chaque projet",
-    subtitle: "",
-    description:
-      "Un suivi rigoureux et des standards élevés pour garantir votre succès",
+    title: "L'excellence au quotidien",
+    description: "Qualité et rigueur dans chaque projet",
   },
   {
     image: trainingImage,
-    badge: "Formation & Renforcement",
-    title: "Former pour",
-    highlight: "transformer",
-    subtitle: "les communautés",
-    description:
-      "Nous partageons notre savoir-faire pour créer des compétences durables",
-  },
-  {
-    image: labImage,
-    badge: "Innovation continue",
-    title: "La science au service",
-    highlight: "du développement",
-    subtitle: "",
-    description:
-      "Des techniques modernes et éprouvées pour optimiser la production aquacole",
+    title: "Former pour transformer",
+    description: "Renforcement des capacités locales",
   },
   {
     image: bassinImage,
-    badge: "Infrastructure moderne",
-    title: "Concevoir et construire",
-    highlight: "l'excellence",
-    subtitle: "",
-    description:
-      "Des infrastructures aquacoles adaptées à vos besoins et à votre environnement",
+    title: "Construire l'avenir",
+    description: "Infrastructures aquacoles modernes",
   },
 ];
 
@@ -92,12 +58,12 @@ const HeroSection = () => {
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
     setIsAutoPlaying(false);
-    setTimeout(() => setIsAutoPlaying(true), 10000);
+    setTimeout(() => setIsAutoPlaying(true), 15000);
   };
 
   useEffect(() => {
     if (!isAutoPlaying) return;
-    const interval = setInterval(nextSlide, 5000);
+    const interval = setInterval(nextSlide, 8000);
     return () => clearInterval(interval);
   }, [isAutoPlaying, nextSlide]);
 
@@ -108,22 +74,22 @@ const HeroSection = () => {
       id="accueil"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background Images with Animation */}
+      {/* Background Images */}
       <AnimatePresence mode="wait">
         <motion.div
           key={currentSlide}
-          initial={{ opacity: 0, scale: 1.1 }}
+          initial={{ opacity: 0, scale: 1.05 }}
           animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-          transition={{ duration: 1, ease: "easeInOut" }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.2, ease: "easeInOut" }}
           className="absolute inset-0"
         >
           <img
             src={slide.image}
-            alt="Aquaculture au Togo"
+            alt="AQUABRAIN"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-hero-gradient opacity-85" />
+          <div className="absolute inset-0 bg-gradient-to-b from-ocean-dark/70 via-ocean-dark/60 to-ocean-dark/80" />
         </motion.div>
       </AnimatePresence>
 
@@ -147,9 +113,9 @@ const HeroSection = () => {
         onClick={() => {
           prevSlide();
           setIsAutoPlaying(false);
-          setTimeout(() => setIsAutoPlaying(true), 10000);
+          setTimeout(() => setIsAutoPlaying(true), 15000);
         }}
-        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-primary-foreground/10 backdrop-blur-sm border border-primary-foreground/20 rounded-full flex items-center justify-center text-primary-foreground hover:bg-primary-foreground/20 transition-all duration-300"
+        className="absolute left-4 md:left-10 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-primary-foreground/10 backdrop-blur-sm rounded-full flex items-center justify-center text-primary-foreground hover:bg-gold/80 hover:text-foreground transition-all duration-300"
         aria-label="Slide précédent"
       >
         <ChevronLeft className="h-6 w-6" />
@@ -158,9 +124,9 @@ const HeroSection = () => {
         onClick={() => {
           nextSlide();
           setIsAutoPlaying(false);
-          setTimeout(() => setIsAutoPlaying(true), 10000);
+          setTimeout(() => setIsAutoPlaying(true), 15000);
         }}
-        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-primary-foreground/10 backdrop-blur-sm border border-primary-foreground/20 rounded-full flex items-center justify-center text-primary-foreground hover:bg-primary-foreground/20 transition-all duration-300"
+        className="absolute right-4 md:right-10 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-primary-foreground/10 backdrop-blur-sm rounded-full flex items-center justify-center text-primary-foreground hover:bg-gold/80 hover:text-foreground transition-all duration-300"
         aria-label="Slide suivant"
       >
         <ChevronRight className="h-6 w-6" />
@@ -171,117 +137,65 @@ const HeroSection = () => {
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.6 }}
-            className="max-w-4xl mx-auto"
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-3xl mx-auto"
           >
-            {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="inline-flex items-center gap-2 bg-gold/20 backdrop-blur-sm border border-gold/30 rounded-full px-4 py-2 mb-6"
-            >
-              <span className="w-2 h-2 bg-gold rounded-full animate-pulse" />
-              <span className="text-primary-foreground text-sm font-medium">
-                {slide.badge}
-              </span>
-            </motion.div>
-
             {/* Main Title */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold text-primary-foreground mb-6 leading-tight"
-            >
-              {slide.title}{" "}
-              <span className="text-gold">{slide.highlight}</span>
-              {slide.subtitle && (
-                <>
-                  <br />
-                  {slide.subtitle}
-                </>
-              )}
-            </motion.h1>
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-6 leading-tight">
+              {slide.title}
+            </h1>
 
             {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="text-lg md:text-xl text-primary-foreground/90 mb-10 max-w-2xl mx-auto"
-            >
+            <p className="text-lg md:text-xl text-primary-foreground/90 mb-10">
               {slide.description}
-            </motion.p>
+            </p>
 
             {/* CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
-            >
-              <Button variant="hero" size="xl">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button variant="hero" size="lg">
                 Découvrir nos services
               </Button>
-              <Button variant="heroOutline" size="xl">
+              <Button variant="heroOutline" size="lg">
                 Nous contacter
               </Button>
-            </motion.div>
+            </div>
           </motion.div>
         </AnimatePresence>
 
         {/* Slide Indicators */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1 }}
-          className="flex justify-center gap-2 mt-12"
-        >
+        <div className="flex justify-center gap-3 mt-16">
           {slides.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`h-2 rounded-full transition-all duration-300 ${
+              className={`h-2 rounded-full transition-all duration-500 ${
                 index === currentSlide
-                  ? "w-8 bg-gold"
+                  ? "w-10 bg-gold"
                   : "w-2 bg-primary-foreground/40 hover:bg-primary-foreground/60"
               }`}
               aria-label={`Aller au slide ${index + 1}`}
             />
           ))}
-        </motion.div>
+        </div>
 
         {/* Scroll indicator */}
         <motion.a
           href="#mission"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
-          className="absolute bottom-24 left-1/2 -translate-x-1/2 text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+          transition={{ duration: 0.8, delay: 1 }}
+          className="absolute bottom-28 left-1/2 -translate-x-1/2 text-primary-foreground/70 hover:text-primary-foreground transition-colors"
         >
           <motion.div
             animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
+            transition={{ duration: 2, repeat: Infinity }}
           >
             <ChevronDown className="h-8 w-8" />
           </motion.div>
         </motion.a>
-      </div>
-
-      {/* Progress Bar */}
-      <div className="absolute bottom-0 left-0 right-0 z-20 h-1 bg-primary-foreground/20">
-        <motion.div
-          key={currentSlide}
-          initial={{ width: "0%" }}
-          animate={{ width: "100%" }}
-          transition={{ duration: 5, ease: "linear" }}
-          className="h-full bg-gold"
-          style={{ display: isAutoPlaying ? "block" : "none" }}
-        />
       </div>
     </section>
   );
