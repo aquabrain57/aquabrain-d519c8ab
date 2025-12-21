@@ -115,10 +115,10 @@ const HeroSection = () => {
           setIsAutoPlaying(false);
           setTimeout(() => setIsAutoPlaying(true), 15000);
         }}
-        className="absolute left-4 md:left-10 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-primary-foreground/10 backdrop-blur-sm rounded-full flex items-center justify-center text-primary-foreground hover:bg-gold/80 hover:text-foreground transition-all duration-300"
+        className="absolute left-2 md:left-10 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 bg-primary-foreground/10 backdrop-blur-sm rounded-full flex items-center justify-center text-primary-foreground hover:bg-gold/80 hover:text-foreground transition-all duration-300"
         aria-label="Slide précédent"
       >
-        <ChevronLeft className="h-6 w-6" />
+        <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
       </button>
       <button
         onClick={() => {
@@ -126,10 +126,10 @@ const HeroSection = () => {
           setIsAutoPlaying(false);
           setTimeout(() => setIsAutoPlaying(true), 15000);
         }}
-        className="absolute right-4 md:right-10 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-primary-foreground/10 backdrop-blur-sm rounded-full flex items-center justify-center text-primary-foreground hover:bg-gold/80 hover:text-foreground transition-all duration-300"
+        className="absolute right-2 md:right-10 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 bg-primary-foreground/10 backdrop-blur-sm rounded-full flex items-center justify-center text-primary-foreground hover:bg-gold/80 hover:text-foreground transition-all duration-300"
         aria-label="Slide suivant"
       >
-        <ChevronRight className="h-6 w-6" />
+        <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
       </button>
 
       {/* Content */}
@@ -144,23 +144,27 @@ const HeroSection = () => {
             className="max-w-3xl mx-auto"
           >
             {/* Main Title */}
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-6 leading-tight">
+            <h1 className="font-serif text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-4 md:mb-6 leading-tight px-2">
               {slide.title}
             </h1>
 
             {/* Subtitle */}
-            <p className="text-lg md:text-xl text-primary-foreground/90 mb-10">
+            <p className="text-base sm:text-lg md:text-xl text-primary-foreground/90 mb-6 md:mb-10 px-4">
               {slide.description}
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="hero" size="lg">
-                Découvrir nos services
-              </Button>
-              <Button variant="heroOutline" size="lg">
-                Nous contacter
-              </Button>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center px-4">
+              <a href="#expertise" onClick={(e) => { e.preventDefault(); document.querySelector("#expertise")?.scrollIntoView({ behavior: "smooth" }); }}>
+                <Button variant="hero" size="default" className="w-full sm:w-auto text-sm md:text-base">
+                  Découvrir nos services
+                </Button>
+              </a>
+              <a href="#contact" onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}>
+                <Button variant="heroOutline" size="default" className="w-full sm:w-auto text-sm md:text-base">
+                  Nous contacter
+                </Button>
+              </a>
             </div>
           </motion.div>
         </AnimatePresence>

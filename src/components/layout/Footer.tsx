@@ -93,7 +93,8 @@ const Footer = () => {
             <h4 className="font-serif text-lg font-bold mb-6">Contact</h4>
             <ul className="space-y-3 text-primary-foreground/70">
               <li>Lomé, Togo</li>
-              <li>+228 XX XX XX XX</li>
+              <li>+228 79 68 79 66</li>
+              <li>+228 91 20 14 68</li>
               <li>contact@aquabrain.tg</li>
             </ul>
           </motion.div>
