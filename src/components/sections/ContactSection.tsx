@@ -29,7 +29,7 @@ const ContactSection = () => {
     {
       icon: Phone,
       label: "Téléphone",
-      value: "+228 XX XX XX XX",
+      value: "+228 79 68 79 66 / 91 20 14 68",
     },
     {
       icon: Mail,

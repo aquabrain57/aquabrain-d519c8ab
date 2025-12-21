@@ -13,49 +13,36 @@ const navItems = [
 ];
 
 const Header = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const target = document.querySelector(href);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
+    setIsMobileMenuOpen(false);
+  };
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled
-          ? "bg-card shadow-lg py-3"
-          : "bg-transparent py-5"
-      }`}
-    >
+    <header className="fixed top-0 left-0 right-0 z-50 bg-card shadow-md py-3">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <motion.a
             href="#accueil"
-            className="flex items-center gap-3"
+            onClick={(e) => handleNavClick(e, "#accueil")}
+            className="flex items-center gap-2"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <img src={logo} alt="AQUABRAIN" className="h-12 w-auto" />
+            <img src={logo} alt="AQUABRAIN" className="h-10 w-auto" />
             <div className="flex flex-col">
-              <span
-                className={`font-serif text-xl font-bold transition-colors duration-300 ${
-                  isScrolled ? "text-ocean" : "text-primary-foreground"
-                }`}
-              >
+              <span className="font-serif text-lg font-bold text-ocean">
                 AQUABRAIN
               </span>
-              <span
-                className={`text-xs font-medium tracking-wider transition-colors duration-300 ${
-                  isScrolled ? "text-muted-foreground" : "text-primary-foreground/70"
-                }`}
-              >
+              <span className="text-[10px] font-medium tracking-wider text-muted-foreground">
                 SARL
               </span>
             </div>
@@ -67,11 +54,8 @@ const Header = () => {
               <motion.a
                 key={item.href}
                 href={item.href}
-                className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 ${
-                  isScrolled
-                    ? "text-foreground hover:text-ocean hover:bg-ocean/10"
-                    : "text-primary-foreground hover:text-gold hover:bg-primary-foreground/10"
-                }`}
+                onClick={(e) => handleNavClick(e, item.href)}
+                className="px-4 py-2 rounded-lg font-medium text-sm text-foreground hover:text-ocean hover:bg-ocean/10 transition-all duration-300"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -82,29 +66,22 @@ const Header = () => {
           </nav>
 
           {/* CTA Button */}
-          <motion.div
+          <motion.a
+            href="tel:+22879687966"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.5 }}
             className="hidden lg:block"
           >
-            <Button
-              variant={isScrolled ? "gold" : "hero"}
-              size="default"
-              className="gap-2"
-            >
+            <Button variant="gold" size="default" className="gap-2">
               <Phone className="h-4 w-4" />
               Nous Contacter
             </Button>
-          </motion.div>
+          </motion.a>
 
           {/* Mobile Menu Button */}
           <button
-            className={`lg:hidden p-2 rounded-lg transition-colors ${
-              isScrolled
-                ? "text-foreground hover:bg-muted"
-                : "text-primary-foreground hover:bg-primary-foreground/10"
-            }`}
+            className="lg:hidden p-2 rounded-lg text-ocean hover:bg-ocean/10 transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? (
@@ -125,22 +102,24 @@ const Header = () => {
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="bg-card rounded-xl shadow-xl p-4 space-y-1">
+              <div className="bg-card rounded-xl shadow-xl p-4 space-y-1 border border-border">
                 {navItems.map((item) => (
                   <a
                     key={item.href}
                     href={item.href}
+                    onClick={(e) => handleNavClick(e, item.href)}
                     className="block px-4 py-3 text-foreground font-medium hover:text-ocean hover:bg-ocean/10 rounded-lg transition-colors"
-                    onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {item.label}
                   </a>
                 ))}
                 <div className="pt-3 border-t border-border">
-                  <Button variant="gold" size="lg" className="w-full gap-2">
-                    <Phone className="h-4 w-4" />
-                    Nous Contacter
-                  </Button>
+                  <a href="tel:+22879687966">
+                    <Button variant="gold" size="lg" className="w-full gap-2">
+                      <Phone className="h-4 w-4" />
+                      Nous Contacter
+                    </Button>
+                  </a>
                 </div>
               </div>
             </motion.nav>
