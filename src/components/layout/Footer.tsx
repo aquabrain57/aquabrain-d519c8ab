@@ -9,7 +9,7 @@ const Footer = () => {
     { icon: Facebook, href: "#", label: "Facebook" },
     { icon: Linkedin, href: "#", label: "LinkedIn" },
     { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Mail, href: "mailto:contact@aquabrain.tg", label: "Email" },
+    { icon: Mail, href: "mailto:aquabrain57@gmail.com", label: "Email" },
   ];
 
   const quickLinks = [
@@ -74,6 +74,10 @@ const Footer = () => {
                 <li key={link.href}>
                   <a
                     href={link.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      document.querySelector(link.href)?.scrollIntoView({ behavior: "smooth" });
+                    }}
                     className="text-primary-foreground/70 hover:text-gold transition-colors"
                   >
                     {link.label}
@@ -95,7 +99,7 @@ const Footer = () => {
               <li>Lomé, Togo</li>
               <li>+228 79 68 79 66</li>
               <li>+228 91 20 14 68</li>
-              <li>contact@aquabrain.tg</li>
+              <li>aquabrain57@gmail.com</li>
             </ul>
           </motion.div>
         </div>
