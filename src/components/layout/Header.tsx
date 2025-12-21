@@ -19,7 +19,12 @@ const Header = () => {
     e.preventDefault();
     const target = document.querySelector(href);
     if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
+      const headerHeight = 80;
+      const elementPosition = target.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({
+        top: elementPosition - headerHeight,
+        behavior: "smooth"
+      });
     }
     setIsMobileMenuOpen(false);
   };
