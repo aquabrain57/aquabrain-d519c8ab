@@ -154,14 +154,14 @@ const HeroSection = () => {
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3 justify-center px-4">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center px-6 sm:px-4">
               <a href="#expertise" onClick={(e) => { e.preventDefault(); document.querySelector("#expertise")?.scrollIntoView({ behavior: "smooth" }); }}>
-                <Button variant="hero" size="default" className="w-full sm:w-auto text-sm md:text-base">
+                <Button variant="hero" size="sm" className="w-full sm:w-auto text-xs sm:text-sm md:text-base px-4 sm:px-6 py-2 sm:py-2.5">
                   Découvrir nos services
                 </Button>
               </a>
               <a href="#contact" onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}>
-                <Button variant="heroOutline" size="default" className="w-full sm:w-auto text-sm md:text-base">
+                <Button variant="heroOutline" size="sm" className="w-full sm:w-auto text-xs sm:text-sm md:text-base px-4 sm:px-6 py-2 sm:py-2.5">
                   Nous contacter
                 </Button>
               </a>
@@ -170,15 +170,15 @@ const HeroSection = () => {
         </AnimatePresence>
 
         {/* Slide Indicators */}
-        <div className="flex justify-center gap-3 mt-16">
+        <div className="flex justify-center gap-2 mt-10 sm:mt-16">
           {slides.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`h-2 rounded-full transition-all duration-500 ${
+              className={`h-1.5 sm:h-2 rounded-full transition-all duration-500 ${
                 index === currentSlide
-                  ? "w-10 bg-gold"
-                  : "w-2 bg-primary-foreground/40 hover:bg-primary-foreground/60"
+                  ? "w-6 sm:w-10 bg-gold"
+                  : "w-1.5 sm:w-2 bg-primary-foreground/40 hover:bg-primary-foreground/60"
               }`}
               aria-label={`Aller au slide ${index + 1}`}
             />

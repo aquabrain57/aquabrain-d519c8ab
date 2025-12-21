@@ -34,7 +34,7 @@ const ContactSection = () => {
     {
       icon: Mail,
       label: "Email",
-      value: "contact@aquabrain.tg",
+      value: "aquabrain57@gmail.com",
     },
   ];
 
