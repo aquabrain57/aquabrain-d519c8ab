@@ -109,14 +109,26 @@ const Header = () => {
             >
               <div className="bg-card rounded-xl shadow-xl p-4 space-y-1 border border-border">
                 {navItems.map((item) => (
-                  <a
+                  <button
                     key={item.href}
-                    href={item.href}
-                    onClick={(e) => handleNavClick(e, item.href)}
-                    className="block px-4 py-3 text-foreground font-medium hover:text-ocean hover:bg-ocean/10 rounded-lg transition-colors"
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const target = document.querySelector(item.href);
+                      if (target) {
+                        const headerHeight = 80;
+                        const elementPosition = target.getBoundingClientRect().top + window.scrollY;
+                        window.scrollTo({
+                          top: elementPosition - headerHeight,
+                          behavior: "smooth"
+                        });
+                      }
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="block w-full text-left px-4 py-3 text-foreground font-medium hover:text-ocean hover:bg-ocean/10 rounded-lg transition-colors"
                   >
                     {item.label}
-                  </a>
+                  </button>
                 ))}
                 <div className="pt-3 border-t border-border">
                   <a href="tel:+22879687966">
