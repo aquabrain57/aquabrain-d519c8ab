@@ -1,16 +1,36 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
-import { MapPin, Phone, Mail, Send } from "lucide-react";
+import { useRef, useState } from "react";
+import { MapPin, Phone, Mail, Send, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+const objectiveOptions = [
+  { value: "projet", label: "Projet aquacole" },
+  { value: "formation", label: "Formation en aquaculture" },
+  { value: "installation-ferme", label: "Installation de ferme" },
+  { value: "ecloserie", label: "Écloserie" },
+  { value: "etude-faisabilite", label: "Étude de faisabilité" },
+  { value: "conseil-technique", label: "Conseil technique" },
+  { value: "fourniture-alevins", label: "Fourniture d'alevins" },
+  { value: "general", label: "Renseignement général" },
+  { value: "autre", label: "Autre" },
+];
 
 const ContactSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { toast } = useToast();
+  const [objective, setObjective] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -119,6 +139,41 @@ const ContactSection = () => {
                     />
                   </div>
                 </div>
+
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium mb-2">
+                      Téléphone
+                    </label>
+                    <Input
+                      type="tel"
+                      placeholder="+228 XX XX XX XX"
+                      className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-2">
+                      Objectif / Intérêt
+                    </label>
+                    <Select value={objective} onValueChange={setObjective}>
+                      <SelectTrigger className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground [&>span]:text-primary-foreground/50 [&>span[data-state=selected]]:text-primary-foreground">
+                        <SelectValue placeholder="Choisir une option" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-card border-border z-[100]">
+                        {objectiveOptions.map((option) => (
+                          <SelectItem 
+                            key={option.value} 
+                            value={option.value}
+                            className="cursor-pointer hover:bg-ocean/10 focus:bg-ocean/10"
+                          >
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
                 <div>
                   <label className="block text-sm font-medium mb-2">
                     Sujet

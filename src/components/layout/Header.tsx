@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone } from "lucide-react";
 import logo from "@/assets/logo-aquabrain.png";
@@ -15,8 +15,7 @@ const navItems = [
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
+  const handleNavClick = (href: string) => {
     const target = document.querySelector(href);
     if (target) {
       const headerHeight = 80;
@@ -34,9 +33,9 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <motion.a
-            href="#accueil"
-            onClick={(e) => handleNavClick(e, "#accueil")}
+          <motion.button
+            type="button"
+            onClick={() => handleNavClick("#accueil")}
             className="flex items-center gap-2"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -51,22 +50,22 @@ const Header = () => {
                 SARL
               </span>
             </div>
-          </motion.a>
+          </motion.button>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-1">
             {navItems.map((item, index) => (
-              <motion.a
+              <motion.button
                 key={item.href}
-                href={item.href}
-                onClick={(e) => handleNavClick(e, item.href)}
+                type="button"
+                onClick={() => handleNavClick(item.href)}
                 className="px-4 py-2 rounded-lg font-medium text-sm text-foreground hover:text-ocean hover:bg-ocean/10 transition-all duration-300"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 {item.label}
-              </motion.a>
+              </motion.button>
             ))}
           </nav>
 
@@ -108,36 +107,32 @@ const Header = () => {
               transition={{ duration: 0.3 }}
             >
               <div className="bg-card rounded-xl shadow-xl p-4 space-y-1 border border-border">
-                {navItems.map((item) => (
-                  <button
+                {navItems.map((item, index) => (
+                  <motion.button
                     key={item.href}
                     type="button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      const target = document.querySelector(item.href);
-                      if (target) {
-                        const headerHeight = 80;
-                        const elementPosition = target.getBoundingClientRect().top + window.scrollY;
-                        window.scrollTo({
-                          top: elementPosition - headerHeight,
-                          behavior: "smooth"
-                        });
-                      }
-                      setIsMobileMenuOpen(false);
-                    }}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.05 }}
+                    onClick={() => handleNavClick(item.href)}
                     className="block w-full text-left px-4 py-3 text-foreground font-medium hover:text-ocean hover:bg-ocean/10 rounded-lg transition-colors"
                   >
                     {item.label}
-                  </button>
+                  </motion.button>
                 ))}
-                <div className="pt-3 border-t border-border">
+                <motion.div 
+                  className="pt-3 border-t border-border"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3, delay: 0.3 }}
+                >
                   <a href="tel:+22879687966">
                     <Button variant="gold" size="lg" className="w-full gap-2">
                       <Phone className="h-4 w-4" />
                       Nous Contacter
                     </Button>
                   </a>
-                </div>
+                </motion.div>
               </div>
             </motion.nav>
           )}
