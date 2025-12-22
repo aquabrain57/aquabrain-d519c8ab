@@ -56,27 +56,28 @@ const GallerySection = () => {
         </motion.div>
 
         {/* Gallery Grid - Improved Layout */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
           {displayedImages.map((image, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
-              className="relative group cursor-pointer overflow-hidden rounded-xl aspect-square"
+              transition={{ duration: 0.5, delay: index * 0.05 }}
+              className="relative group cursor-pointer overflow-hidden rounded-lg sm:rounded-xl aspect-square"
               onClick={() => setSelectedImage(image.src)}
             >
               <img
                 src={image.src}
                 alt={image.alt}
+                loading="lazy"
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-ocean-dark/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                <span className="inline-block bg-gold px-2 md:px-3 py-1 rounded-full text-xs font-semibold text-foreground mb-1">
+              <div className="absolute inset-0 bg-gradient-to-t from-ocean-dark/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 sm:transition-opacity sm:duration-300" />
+              <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-3 md:p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                <span className="inline-block bg-gold px-2 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-semibold text-foreground mb-1">
                   {image.category}
                 </span>
-                <p className="text-primary-foreground font-medium text-xs md:text-sm line-clamp-1">
+                <p className="text-primary-foreground font-medium text-[10px] sm:text-xs md:text-sm line-clamp-1">
                   {image.alt}
                 </p>
               </div>
@@ -89,23 +90,23 @@ const GallerySection = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            className="flex justify-center mt-10"
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="flex justify-center mt-6 sm:mt-10"
           >
             <Button
               variant="outline"
-              size="lg"
+              size="default"
               onClick={() => setShowAll(!showAll)}
-              className="gap-2 border-ocean text-ocean hover:bg-ocean hover:text-primary-foreground"
+              className="gap-2 border-ocean text-ocean hover:bg-ocean hover:text-primary-foreground text-sm sm:text-base px-4 sm:px-6"
             >
               {showAll ? (
                 <>
-                  <ChevronUp className="h-5 w-5" />
+                  <ChevronUp className="h-4 w-4 sm:h-5 sm:w-5" />
                   Voir moins
                 </>
               ) : (
                 <>
-                  <ChevronDown className="h-5 w-5" />
+                  <ChevronDown className="h-4 w-4 sm:h-5 sm:w-5" />
                   Voir plus ({images.length - INITIAL_DISPLAY_COUNT} photos)
                 </>
               )}
