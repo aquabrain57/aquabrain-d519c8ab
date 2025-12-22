@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { X } from "lucide-react";
+import { X, ChevronDown, ChevronUp } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 import labImage from "@/assets/aquabrain-lab.jpg";
 import cageImage from "@/assets/aquabrain-cage.jpg";
@@ -21,10 +22,16 @@ const images = [
   { src: bassinImage, alt: "Installation de bassins", category: "Terrain" },
 ];
 
+const INITIAL_DISPLAY_COUNT = 8;
+
 const GallerySection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [showAll, setShowAll] = useState(false);
+
+  const displayedImages = showAll ? images : images.slice(0, INITIAL_DISPLAY_COUNT);
+  const hasMoreImages = images.length > INITIAL_DISPLAY_COUNT;
 
   return (
     <section id="galerie" className="py-20 lg:py-32 bg-muted/50" ref={ref}>
@@ -48,38 +55,63 @@ const GallerySection = () => {
           </p>
         </motion.div>
 
-        {/* Gallery Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {images.map((image, index) => (
+        {/* Gallery Grid - Improved Layout */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+          {displayedImages.map((image, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`relative group cursor-pointer overflow-hidden rounded-xl ${
-                index === 0 || index === 4 ? "md:col-span-2 md:row-span-2" : ""
-              }`}
+              transition={{ duration: 0.5, delay: index * 0.08 }}
+              className="relative group cursor-pointer overflow-hidden rounded-xl aspect-square"
               onClick={() => setSelectedImage(image.src)}
             >
               <img
                 src={image.src}
                 alt={image.alt}
-                className={`w-full object-cover transition-transform duration-500 group-hover:scale-110 ${
-                  index === 0 || index === 4 ? "h-64 md:h-full" : "h-48 md:h-56"
-                }`}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-ocean-dark/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                <span className="inline-block bg-gold px-3 py-1 rounded-full text-xs font-semibold text-foreground mb-2">
+              <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                <span className="inline-block bg-gold px-2 md:px-3 py-1 rounded-full text-xs font-semibold text-foreground mb-1">
                   {image.category}
                 </span>
-                <p className="text-primary-foreground font-medium text-sm">
+                <p className="text-primary-foreground font-medium text-xs md:text-sm line-clamp-1">
                   {image.alt}
                 </p>
               </div>
             </motion.div>
           ))}
         </div>
+
+        {/* Show More/Less Button */}
+        {hasMoreImages && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="flex justify-center mt-10"
+          >
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={() => setShowAll(!showAll)}
+              className="gap-2 border-ocean text-ocean hover:bg-ocean hover:text-primary-foreground"
+            >
+              {showAll ? (
+                <>
+                  <ChevronUp className="h-5 w-5" />
+                  Voir moins
+                </>
+              ) : (
+                <>
+                  <ChevronDown className="h-5 w-5" />
+                  Voir plus ({images.length - INITIAL_DISPLAY_COUNT} photos)
+                </>
+              )}
+            </Button>
+          </motion.div>
+        )}
       </div>
 
       {/* Lightbox */}
