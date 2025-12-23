@@ -76,22 +76,22 @@ const ExpertiseSection = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="expertise" className="py-20 lg:py-32 bg-muted/50" ref={ref}>
+    <section id="expertise" className="py-12 sm:py-16 lg:py-32 bg-muted/50" ref={ref}>
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-12 lg:mb-16"
         >
-          <span className="inline-block text-gold font-semibold mb-4 uppercase tracking-wider text-sm">
+          <span className="inline-block text-gold font-semibold mb-3 sm:mb-4 uppercase tracking-wider text-xs sm:text-sm">
             Nos Services
           </span>
-          <h2 className="font-serif text-3xl md:text-5xl font-bold text-foreground mb-6">
+          <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 sm:mb-6">
             Domaines d'<span className="text-ocean">Expertise</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
+          <p className="text-muted-foreground text-sm sm:text-base lg:text-lg max-w-3xl mx-auto px-2">
             Nous intervenons sur l'ensemble de la chaîne de valeur aquacole,
             depuis l'étude et la conception jusqu'au suivi, l'évaluation et la
             formation.
@@ -99,28 +99,28 @@ const ExpertiseSection = () => {
         </motion.div>
 
         {/* Expertise Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {expertises.map((expertise, index) => (
             <motion.div
               key={expertise.title}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group bg-card p-6 rounded-xl shadow-md border border-border hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              className="group bg-card p-4 sm:p-6 rounded-lg sm:rounded-xl shadow-md border border-border hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
               <div
-                className={`w-14 h-14 rounded-xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110 ${
+                className={`w-10 h-10 sm:w-14 sm:h-14 rounded-lg sm:rounded-xl flex items-center justify-center mb-3 sm:mb-5 transition-transform duration-300 group-hover:scale-110 ${
                   expertise.color === "gold"
                     ? "bg-gradient-to-br from-gold to-gold-dark"
                     : "bg-gradient-to-br from-ocean to-ocean-dark"
                 }`}
               >
-                <expertise.icon className="h-7 w-7 text-primary-foreground" />
+                <expertise.icon className="h-5 w-5 sm:h-7 sm:w-7 text-primary-foreground" />
               </div>
-              <h3 className="font-serif text-lg font-bold text-foreground mb-3">
+              <h3 className="font-serif text-base sm:text-lg font-bold text-foreground mb-2 sm:mb-3">
                 {expertise.title}
               </h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
+              <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed">
                 {expertise.description}
               </p>
             </motion.div>
