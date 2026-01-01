@@ -11,6 +11,15 @@ import teamImage from "@/assets/aquabrain-team.jpg";
 import boatImage from "@/assets/aquabrain-boat.jpg";
 import trainingImage from "@/assets/aquabrain-training.jpg";
 import bassinImage from "@/assets/aquabrain-bassin.jpg";
+import constructionImage from "@/assets/aquabrain-construction.jpg";
+import bassinsBetonImage from "@/assets/aquabrain-bassins-beton.jpg";
+import cageFlottanteImage from "@/assets/aquabrain-cage-flottante.jpg";
+import barqueImage from "@/assets/aquabrain-barque.jpg";
+import aquaponieImage from "@/assets/aquabrain-aquaponie.jpg";
+import cagesMultiplesImage from "@/assets/aquabrain-cages-multiples.jpg";
+import offshoreImage from "@/assets/aquabrain-offshore.jpg";
+import montagneImage from "@/assets/aquabrain-montagne.jpg";
+import excavationImage from "@/assets/aquabrain-excavation.jpg";
 
 const images = [
   { src: labImage, alt: "Laboratoire AQUABRAIN", category: "Laboratoire" },
@@ -20,6 +29,15 @@ const images = [
   { src: boatImage, alt: "Installation de cages", category: "Infrastructure" },
   { src: trainingImage, alt: "Formation", category: "Formation" },
   { src: bassinImage, alt: "Installation de bassins", category: "Terrain" },
+  { src: constructionImage, alt: "Construction de bassins", category: "Construction" },
+  { src: bassinsBetonImage, alt: "Bassins en béton", category: "Infrastructure" },
+  { src: cageFlottanteImage, alt: "Cage flottante", category: "Infrastructure" },
+  { src: barqueImage, alt: "Travail sur l'eau", category: "Terrain" },
+  { src: aquaponieImage, alt: "Système aquaponie", category: "Aquaponie" },
+  { src: cagesMultiplesImage, alt: "Cages multiples flottantes", category: "Infrastructure" },
+  { src: offshoreImage, alt: "Cages offshore", category: "Infrastructure" },
+  { src: montagneImage, alt: "Ferme aquacole montagne", category: "Infrastructure" },
+  { src: excavationImage, alt: "Excavation de bassins", category: "Construction" },
 ];
 
 const INITIAL_DISPLAY_COUNT = 8;
