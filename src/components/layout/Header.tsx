@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Menu, X, Phone } from "lucide-react";
 import logo from "@/assets/logo-aquabrain.png";
 import { Button } from "@/components/ui/button";
@@ -97,46 +97,35 @@ const Header = () => {
         </div>
 
         {/* Mobile Navigation */}
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.nav
-              className="lg:hidden mt-4"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className="bg-card rounded-xl shadow-xl p-4 space-y-1 border border-border">
-                {navItems.map((item, index) => (
-                  <motion.button
-                    key={item.href}
-                    type="button"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
-                    onClick={() => handleNavClick(item.href)}
-                    className="block w-full text-left px-4 py-3 text-foreground font-medium hover:text-ocean hover:bg-ocean/10 rounded-lg transition-colors"
-                  >
-                    {item.label}
-                  </motion.button>
-                ))}
-                <motion.div 
-                  className="pt-3 border-t border-border"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3, delay: 0.3 }}
+        {isMobileMenuOpen && (
+          <motion.nav
+            className="lg:hidden mt-4"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className="bg-card rounded-xl shadow-xl p-4 space-y-1 border border-border">
+              {navItems.map((item) => (
+                <button
+                  key={item.href}
+                  type="button"
+                  onClick={() => handleNavClick(item.href)}
+                  className="block w-full text-left px-4 py-3 text-foreground font-medium hover:text-ocean hover:bg-ocean/10 rounded-lg transition-colors"
                 >
-                  <a href="tel:+22879687966">
-                    <Button variant="gold" size="lg" className="w-full gap-2">
-                      <Phone className="h-4 w-4" />
-                      Nous Contacter
-                    </Button>
-                  </a>
-                </motion.div>
+                  {item.label}
+                </button>
+              ))}
+              <div className="pt-3 border-t border-border">
+                <a href="tel:+22879687966">
+                  <Button variant="gold" size="lg" className="w-full gap-2">
+                    <Phone className="h-4 w-4" />
+                    Nous Contacter
+                  </Button>
+                </a>
               </div>
-            </motion.nav>
-          )}
-        </AnimatePresence>
+            </div>
+          </motion.nav>
+        )}
       </div>
     </header>
   );
