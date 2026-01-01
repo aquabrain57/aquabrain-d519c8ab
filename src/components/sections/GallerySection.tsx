@@ -22,13 +22,7 @@ import montagneImage from "@/assets/aquabrain-montagne.jpg";
 import excavationImage from "@/assets/aquabrain-excavation.jpg";
 
 const images = [
-  { src: labImage, alt: "Laboratoire AQUABRAIN", category: "Laboratoire" },
-  { src: cageImage, alt: "Cages aquacoles", category: "Infrastructure" },
-  { src: work1Image, alt: "Travail de terrain", category: "Terrain" },
-  { src: teamImage, alt: "Équipe AQUABRAIN", category: "Équipe" },
-  { src: boatImage, alt: "Installation de cages", category: "Infrastructure" },
-  { src: trainingImage, alt: "Formation", category: "Formation" },
-  { src: bassinImage, alt: "Installation de bassins", category: "Terrain" },
+  // Nouvelles images en premier
   { src: constructionImage, alt: "Construction de bassins", category: "Construction" },
   { src: bassinsBetonImage, alt: "Bassins en béton", category: "Infrastructure" },
   { src: cageFlottanteImage, alt: "Cage flottante", category: "Infrastructure" },
@@ -38,6 +32,14 @@ const images = [
   { src: offshoreImage, alt: "Cages offshore", category: "Infrastructure" },
   { src: montagneImage, alt: "Ferme aquacole montagne", category: "Infrastructure" },
   { src: excavationImage, alt: "Excavation de bassins", category: "Construction" },
+  // Images originales
+  { src: labImage, alt: "Laboratoire AQUABRAIN", category: "Laboratoire" },
+  { src: cageImage, alt: "Cages aquacoles", category: "Infrastructure" },
+  { src: work1Image, alt: "Travail de terrain", category: "Terrain" },
+  { src: teamImage, alt: "Équipe AQUABRAIN", category: "Équipe" },
+  { src: boatImage, alt: "Installation de cages", category: "Infrastructure" },
+  { src: trainingImage, alt: "Formation", category: "Formation" },
+  { src: bassinImage, alt: "Installation de bassins", category: "Terrain" },
 ];
 
 const INITIAL_DISPLAY_COUNT = 8;
