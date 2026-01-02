@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { MapPin, Phone, Mail, Send, ChevronDown } from "lucide-react";
+import { MapPin, Phone, Mail, Send, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import {
   Select,
   SelectContent,
@@ -26,18 +27,89 @@ const objectiveOptions = [
   { value: "autre", label: "Autre" },
 ];
 
+interface FormData {
+  name: string;
+  email: string;
+  phone: string;
+  subject: string;
+  message: string;
+}
+
 const ContactSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { toast } = useToast();
   const [objective, setObjective] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState<FormData>({
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleInputChange = (field: keyof FormData, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const validateForm = (): boolean => {
+    if (!formData.name.trim()) {
+      toast({ title: "Erreur", description: "Veuillez entrer votre nom.", variant: "destructive" });
+      return false;
+    }
+    if (!formData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      toast({ title: "Erreur", description: "Veuillez entrer un email valide.", variant: "destructive" });
+      return false;
+    }
+    if (!formData.subject.trim()) {
+      toast({ title: "Erreur", description: "Veuillez entrer un sujet.", variant: "destructive" });
+      return false;
+    }
+    if (!formData.message.trim()) {
+      toast({ title: "Erreur", description: "Veuillez entrer votre message.", variant: "destructive" });
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message envoyé !",
-      description: "Nous vous répondrons dans les plus brefs délais.",
-    });
+    
+    if (!validateForm()) return;
+
+    setIsSubmitting(true);
+    
+    try {
+      const { error } = await supabase.from("contact_messages").insert({
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone.trim() || null,
+        objective: objective || null,
+        subject: formData.subject.trim(),
+        message: formData.message.trim(),
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Message envoyé !",
+        description: "Nous vous répondrons dans les plus brefs délais.",
+      });
+
+      // Reset form
+      setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+      setObjective("");
+    } catch (error) {
+      console.error("Error submitting contact form:", error);
+      toast({
+        title: "Erreur",
+        description: "Une erreur est survenue. Veuillez réessayer.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
@@ -125,6 +197,10 @@ const ContactSection = () => {
                     </label>
                     <Input
                       placeholder="Votre nom"
+                      value={formData.name}
+                      onChange={(e) => handleInputChange("name", e.target.value)}
+                      maxLength={100}
+                      required
                       className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50 text-sm sm:text-base h-10 sm:h-11"
                     />
                   </div>
@@ -135,6 +211,10 @@ const ContactSection = () => {
                     <Input
                       type="email"
                       placeholder="votre@email.com"
+                      value={formData.email}
+                      onChange={(e) => handleInputChange("email", e.target.value)}
+                      maxLength={255}
+                      required
                       className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50 text-sm sm:text-base h-10 sm:h-11"
                     />
                   </div>
@@ -148,6 +228,9 @@ const ContactSection = () => {
                     <Input
                       type="tel"
                       placeholder="+228 XX XX XX XX"
+                      value={formData.phone}
+                      onChange={(e) => handleInputChange("phone", e.target.value)}
+                      maxLength={30}
                       className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50 text-sm sm:text-base h-10 sm:h-11"
                     />
                   </div>
@@ -180,6 +263,10 @@ const ContactSection = () => {
                   </label>
                   <Input
                     placeholder="Objet de votre message"
+                    value={formData.subject}
+                    onChange={(e) => handleInputChange("subject", e.target.value)}
+                    maxLength={200}
+                    required
                     className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50 text-sm sm:text-base h-10 sm:h-11"
                   />
                 </div>
@@ -190,12 +277,25 @@ const ContactSection = () => {
                   <Textarea
                     placeholder="Décrivez votre projet ou votre demande..."
                     rows={4}
+                    value={formData.message}
+                    onChange={(e) => handleInputChange("message", e.target.value)}
+                    maxLength={2000}
+                    required
                     className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50 resize-none text-sm sm:text-base"
                   />
                 </div>
-                <Button variant="hero" size="lg" className="w-full text-sm sm:text-base">
-                  <Send className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
-                  Envoyer le message
+                <Button 
+                  variant="hero" 
+                  size="lg" 
+                  className="w-full text-sm sm:text-base"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <Loader2 className="h-4 w-4 sm:h-5 sm:w-5 mr-2 animate-spin" />
+                  ) : (
+                    <Send className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+                  )}
+                  {isSubmitting ? "Envoi en cours..." : "Envoyer le message"}
                 </Button>
               </div>
             </form>
