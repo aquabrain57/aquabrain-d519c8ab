@@ -81,7 +81,8 @@ const ContactSection = () => {
     setIsSubmitting(true);
     
     try {
-      const { error } = await supabase.from("contact_messages").insert({
+      // Save to database
+      const { error: dbError } = await supabase.from("contact_messages").insert({
         name: formData.name.trim(),
         email: formData.email.trim(),
         phone: formData.phone.trim() || null,
@@ -90,11 +91,28 @@ const ContactSection = () => {
         message: formData.message.trim(),
       });
 
-      if (error) throw error;
+      if (dbError) throw dbError;
+
+      // Send email notifications
+      const { error: emailError } = await supabase.functions.invoke("send-contact-notification", {
+        body: {
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          phone: formData.phone.trim() || null,
+          objective: objective || null,
+          subject: formData.subject.trim(),
+          message: formData.message.trim(),
+        },
+      });
+
+      if (emailError) {
+        console.error("Email notification failed:", emailError);
+        // Don't fail the whole submission if email fails
+      }
 
       toast({
         title: "Message envoyé !",
-        description: "Nous vous répondrons dans les plus brefs délais.",
+        description: "Nous vous répondrons dans les plus brefs délais. Un email de confirmation vous a été envoyé.",
       });
 
       // Reset form
